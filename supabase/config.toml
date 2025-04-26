@@ -1,1 +1,5 @@
+
 project_id = "lkfkqnfcearxlhbkfozt"
+
+[functions.analyze-blood-test]
+verify_jwt = true
