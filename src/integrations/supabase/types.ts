@@ -9,7 +9,98 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      results: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          insight: string | null
+          marker_name: string
+          reference_range: string | null
+          status: string | null
+          unit: string | null
+          upload_id: string
+          value: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          insight?: string | null
+          marker_name: string
+          reference_range?: string | null
+          status?: string | null
+          unit?: string | null
+          upload_id: string
+          value: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          insight?: string | null
+          marker_name?: string
+          reference_range?: string | null
+          status?: string | null
+          unit?: string | null
+          upload_id?: string
+          value?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "results_upload_id_fkey"
+            columns: ["upload_id"]
+            isOneToOne: false
+            referencedRelation: "uploads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      uploads: {
+        Row: {
+          created_at: string
+          expires_at: string
+          file_path: string
+          id: string
+          processed: boolean | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string
+          file_path: string
+          id?: string
+          processed?: boolean | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          file_path?: string
+          id?: string
+          processed?: boolean | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
