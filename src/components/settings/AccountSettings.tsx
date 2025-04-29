@@ -28,8 +28,8 @@ export const AccountSettings = () => {
       setIsDeleting(true);
       
       // Delete all user data - this relies on cascade delete in the database
-      // Use explicit typing for the RPC function name to fix TypeScript error
-      const { error } = await supabase.rpc('delete_user_account' as string, {});
+      // Use a proper type assertion to fix the TypeScript error
+      const { error } = await (supabase.rpc as any)('delete_user_account', {});
       
       if (error) throw error;
       
