@@ -51,11 +51,19 @@ export const ResultsDisplay = () => {
 
         // Group by category
         const resultsByCategory: ResultsByCategory = {};
-        data.forEach((result: BloodTestResult) => {
-          if (!resultsByCategory[result.category]) {
-            resultsByCategory[result.category] = [];
+        data.forEach((result: any) => {
+          const normalizedStatus = result.status ? 
+            (result.status.toLowerCase() as 'low' | 'normal' | 'high') : null;
+          
+          const processedResult: BloodTestResult = {
+            ...result,
+            status: normalizedStatus
+          };
+
+          if (!resultsByCategory[processedResult.category]) {
+            resultsByCategory[processedResult.category] = [];
           }
-          resultsByCategory[result.category].push(result);
+          resultsByCategory[processedResult.category].push(processedResult);
         });
 
         setResults(resultsByCategory);
