@@ -6,10 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { 
   Home,
-  Upload, 
-  LayoutDashboard, 
-  FileText, 
-  Settings, 
   Menu,
   LogOut,
   Activity
@@ -27,10 +23,6 @@ export const AppLayout = () => {
 
   const navigationItems = [
     { name: "Home", path: "/", icon: <Home className="h-5 w-5 mr-2" /> },
-    { name: "Upload", path: "/upload", icon: <Upload className="h-5 w-5 mr-2" /> },
-    { name: "Dashboard", path: "/dashboard", icon: <LayoutDashboard className="h-5 w-5 mr-2" /> },
-    { name: "Results", path: "/results", icon: <FileText className="h-5 w-5 mr-2" /> },
-    { name: "Settings", path: "/settings", icon: <Settings className="h-5 w-5 mr-2" /> },
   ];
 
   return (
