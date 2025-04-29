@@ -28,8 +28,8 @@ export const AccountSettings = () => {
       setIsDeleting(true);
       
       // Delete all user data - this relies on cascade delete in the database
-      // Fix: Pass an empty object as parameter instead of no parameter
-      const { error } = await supabase.rpc('delete_user_account', {});
+      // Use type assertion to fix the TypeScript error
+      const { error } = await supabase.rpc('delete_user_account' as any, {});
       
       if (error) throw error;
       
