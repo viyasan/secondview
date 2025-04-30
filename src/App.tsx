@@ -18,6 +18,12 @@ import DashboardPage from "@/pages/DashboardPage";
 import SettingsPage from "@/pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 
+// Legal Pages
+import PrivacyPolicyPage from "@/pages/legal/PrivacyPolicyPage";
+import TermsOfServicePage from "@/pages/legal/TermsOfServicePage";
+import CookiePolicyPage from "@/pages/legal/CookiePolicyPage";
+import GDPRPage from "@/pages/legal/GDPRPage";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -32,6 +38,14 @@ const App = () => (
               <Route index element={<HomePage />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="signup" element={<SignupPage />} />
+              
+              {/* Legal Pages */}
+              <Route path="legal">
+                <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+                <Route path="terms-of-service" element={<TermsOfServicePage />} />
+                <Route path="cookie-policy" element={<CookiePolicyPage />} />
+                <Route path="gdpr" element={<GDPRPage />} />
+              </Route>
               
               {/* Protected Routes */}
               <Route element={<ProtectedRoute />}>
