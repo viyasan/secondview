@@ -9,7 +9,11 @@ import {
   Home,
   Menu,
   LogOut,
-  Activity
+  Activity,
+  Upload,
+  BarChart,
+  User,
+  Settings
 } from "lucide-react";
 
 export const AppLayout = () => {
@@ -26,6 +30,14 @@ export const AppLayout = () => {
     { name: "Home", path: "/", icon: <Home className="h-5 w-5 mr-2" /> },
   ];
 
+  if (user) {
+    navigationItems.push(
+      { name: "Upload Results", path: "/upload", icon: <Upload className="h-5 w-5 mr-2" /> },
+      { name: "Dashboard", path: "/dashboard", icon: <BarChart className="h-5 w-5 mr-2" /> },
+      { name: "Settings", path: "/settings", icon: <Settings className="h-5 w-5 mr-2" /> }
+    );
+  }
+
   const legalLinks = [
     { name: "Privacy Policy", path: "/legal/privacy-policy" },
     { name: "Terms of Service", path: "/legal/terms-of-service" },
@@ -36,7 +48,7 @@ export const AppLayout = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center">
+        <div className="container flex h-16 items-center">
           <div className="mr-4 hidden md:flex">
             <Link to="/" className="flex items-center space-x-2">
               <Activity className="h-6 w-6 text-green-600" />
@@ -100,14 +112,27 @@ export const AppLayout = () => {
             </nav>
             
             {user ? (
-              <Button variant="ghost" onClick={handleSignOut} className="hidden md:flex">
-                <LogOut className="h-5 w-5 mr-2" />
-                Sign Out
-              </Button>
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-muted-foreground hidden md:block">
+                  Hello, {user.email?.split('@')[0]}
+                </span>
+                <Button variant="ghost" onClick={handleSignOut} className="hidden md:flex">
+                  <LogOut className="h-5 w-5 mr-2" />
+                  Sign Out
+                </Button>
+                <Button variant="outline" size="icon" className="rounded-full" onClick={() => navigate('/settings')}>
+                  <User className="h-5 w-5" />
+                </Button>
+              </div>
             ) : (
-              <Button variant="default" onClick={() => navigate("/login")} className="hidden md:flex">
-                Sign In
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button variant="outline" onClick={() => navigate("/login")} className="hidden md:flex">
+                  Sign In
+                </Button>
+                <Button variant="default" onClick={() => navigate("/signup")} className="hidden md:flex bg-green-600 hover:bg-green-700">
+                  Sign Up
+                </Button>
+              </div>
             )}
           </div>
         </div>
@@ -117,7 +142,7 @@ export const AppLayout = () => {
         <Outlet />
       </main>
       
-      <footer className="border-t py-8">
+      <footer className="border-t py-8 bg-gray-50">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {/* Company Info */}
