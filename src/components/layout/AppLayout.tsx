@@ -13,9 +13,7 @@ import {
   Upload,
   BarChart,
   User,
-  Settings,
-  BookOpen,
-  CircleInfo
+  Settings
 } from "lucide-react";
 
 export const AppLayout = () => {
@@ -30,8 +28,6 @@ export const AppLayout = () => {
 
   const navigationItems = [
     { name: "Home", path: "/", icon: <Home className="h-5 w-5 mr-2" /> },
-    { name: "How It Works", path: "/how-it-works", icon: <BookOpen className="h-5 w-5 mr-2" /> },
-    { name: "About Us", path: "/about", icon: <CircleInfo className="h-5 w-5 mr-2" /> },
   ];
 
   if (user) {
@@ -160,39 +156,6 @@ export const AppLayout = () => {
               </p>
             </div>
             
-            {/* Quick Links */}
-            <div className="col-span-1">
-              <h3 className="text-sm font-semibold mb-3">Quick Links</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link 
-                    to="/how-it-works"
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    How It Works
-                  </Link>
-                </li>
-                <li>
-                  <Link 
-                    to="/about"
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    About Us
-                  </Link>
-                </li>
-                {user && (
-                  <li>
-                    <Link 
-                      to="/upload"
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      Upload Results
-                    </Link>
-                  </li>
-                )}
-              </ul>
-            </div>
-            
             {/* Legal Links */}
             <div className="col-span-1">
               <h3 className="text-sm font-semibold mb-3">Legal</h3>
@@ -207,6 +170,16 @@ export const AppLayout = () => {
                     </Link>
                   </li>
                 ))}
+              </ul>
+            </div>
+            
+            {/* Contact */}
+            <div className="col-span-1">
+              <h3 className="text-sm font-semibold mb-3">Contact</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>Email: contact@vitalscan.com</li>
+                <li>Phone: (555) 123-4567</li>
+                <li>Support Hours: 9 AM - 5 PM EST</li>
               </ul>
             </div>
           </div>
