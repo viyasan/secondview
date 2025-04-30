@@ -119,7 +119,7 @@ export const AppLayout = () => {
       
       <footer className="border-t py-8">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {/* Company Info */}
             <div className="col-span-1">
               <Link to="/" className="flex items-center space-x-2 mb-4">
@@ -156,19 +156,6 @@ export const AppLayout = () => {
                 <li>Phone: (555) 123-4567</li>
                 <li>Support Hours: 9 AM - 5 PM EST</li>
               </ul>
-            </div>
-            
-            {/* Newsletter/Social */}
-            <div className="col-span-1">
-              <h3 className="text-sm font-semibold mb-3">Stay Connected</h3>
-              <p className="text-sm text-muted-foreground mb-2">
-                Follow us to stay updated on health insights.
-              </p>
-              <div className="flex space-x-4 mt-3">
-                <a href="#" className="text-muted-foreground hover:text-foreground">Twitter</a>
-                <a href="#" className="text-muted-foreground hover:text-foreground">LinkedIn</a>
-                <a href="#" className="text-muted-foreground hover:text-foreground">Facebook</a>
-              </div>
             </div>
           </div>
           
