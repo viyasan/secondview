@@ -17,6 +17,8 @@ import ResultsPage from "@/pages/ResultsPage";
 import DashboardPage from "@/pages/DashboardPage";
 import SettingsPage from "@/pages/SettingsPage";
 import NotFound from "./pages/NotFound";
+import AboutUsPage from "@/pages/AboutUsPage";
+import HowItWorksPage from "@/pages/HowItWorksPage";
 
 // Legal Pages
 import PrivacyPolicyPage from "@/pages/legal/PrivacyPolicyPage";
@@ -38,6 +40,8 @@ const App = () => (
               <Route index element={<HomePage />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="signup" element={<SignupPage />} />
+              <Route path="about" element={<AboutUsPage />} />
+              <Route path="how-it-works" element={<HowItWorksPage />} />
               
               {/* Legal Pages */}
               <Route path="legal">
