@@ -13,8 +13,13 @@ import {
   Upload,
   BarChart,
   User,
-  Settings
+  Settings,
+  Info,
+  BookOpen
 } from "lucide-react";
+import { MainNavigation } from "./MainNavigation";
+import { FooterContent } from "./FooterContent";
+import { MobileNav } from "./MobileNav";
 
 export const AppLayout = () => {
   const { signOut, user } = useAuth();
@@ -25,25 +30,6 @@ export const AppLayout = () => {
     await signOut();
     navigate("/login");
   };
-
-  const navigationItems = [
-    { name: "Home", path: "/", icon: <Home className="h-5 w-5 mr-2" /> },
-  ];
-
-  if (user) {
-    navigationItems.push(
-      { name: "Upload Results", path: "/upload", icon: <Upload className="h-5 w-5 mr-2" /> },
-      { name: "Dashboard", path: "/dashboard", icon: <BarChart className="h-5 w-5 mr-2" /> },
-      { name: "Settings", path: "/settings", icon: <Settings className="h-5 w-5 mr-2" /> }
-    );
-  }
-
-  const legalLinks = [
-    { name: "Privacy Policy", path: "/legal/privacy-policy" },
-    { name: "Terms of Service", path: "/legal/terms-of-service" },
-    { name: "Cookie Policy", path: "/legal/cookie-policy" },
-    { name: "GDPR", path: "/legal/gdpr" },
-  ];
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -63,53 +49,12 @@ export const AppLayout = () => {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[240px] sm:w-[280px]">
-              <div className="flex flex-col gap-6">
-                <Link to="/" className="flex items-center space-x-2" onClick={() => setOpen(false)}>
-                  <Activity className="h-6 w-6 text-green-600" />
-                  <span className="font-bold text-xl">VitalScan</span>
-                </Link>
-                <nav className="flex flex-col gap-2">
-                  {navigationItems.map((item) => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className="flex items-center py-2 text-muted-foreground hover:text-foreground"
-                      onClick={() => setOpen(false)}
-                    >
-                      {item.icon}
-                      {item.name}
-                    </Link>
-                  ))}
-                  {user && (
-                    <Button
-                      variant="ghost"
-                      className="flex items-center justify-start px-2"
-                      onClick={() => {
-                        handleSignOut();
-                        setOpen(false);
-                      }}
-                    >
-                      <LogOut className="h-5 w-5 mr-2" />
-                      Sign Out
-                    </Button>
-                  )}
-                </nav>
-              </div>
+              <MobileNav user={user} handleSignOut={handleSignOut} setOpen={setOpen} />
             </SheetContent>
           </Sheet>
           
           <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-            <nav className="mx-6 items-center space-x-4 md:flex hidden">
-              {navigationItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
+            <MainNavigation user={user} />
             
             {user ? (
               <div className="flex items-center gap-4">
@@ -144,51 +89,7 @@ export const AppLayout = () => {
       
       <footer className="border-t py-8 bg-gray-50">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            {/* Company Info */}
-            <div className="col-span-1">
-              <Link to="/" className="flex items-center space-x-2 mb-4">
-                <Activity className="h-5 w-5 text-green-600" />
-                <span className="font-semibold">VitalScan</span>
-              </Link>
-              <p className="text-sm text-muted-foreground mb-4">
-                Your trusted health analytics platform for blood test insights.
-              </p>
-            </div>
-            
-            {/* Legal Links */}
-            <div className="col-span-1">
-              <h3 className="text-sm font-semibold mb-3">Legal</h3>
-              <ul className="space-y-2">
-                {legalLinks.map((link) => (
-                  <li key={link.path}>
-                    <Link 
-                      to={link.path}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            {/* Contact */}
-            <div className="col-span-1">
-              <h3 className="text-sm font-semibold mb-3">Contact</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>Email: contact@vitalscan.com</li>
-                <li>Phone: (555) 123-4567</li>
-                <li>Support Hours: 9 AM - 5 PM EST</li>
-              </ul>
-            </div>
-          </div>
-          
-          <Separator className="mb-6" />
-          
-          <div className="text-center text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} VitalScan. All rights reserved.</p>
-          </div>
+          <FooterContent />
         </div>
       </footer>
     </div>
