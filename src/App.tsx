@@ -14,7 +14,6 @@ import LoginPage from "@/pages/LoginPage";
 import SignupPage from "@/pages/SignupPage";
 import UploadPage from "@/pages/UploadPage";
 import ResultsPage from "@/pages/ResultsPage";
-import DashboardPage from "@/pages/DashboardPage";
 import SettingsPage from "@/pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 import AboutUsPage from "@/pages/AboutUsPage";
@@ -55,7 +54,6 @@ const App = () => (
               <Route element={<ProtectedRoute />}>
                 <Route path="upload" element={<UploadPage />} />
                 <Route path="results/:id" element={<ResultsPage />} />
-                <Route path="dashboard" element={<DashboardPage />} />
                 <Route path="settings" element={<SettingsPage />} />
               </Route>
               

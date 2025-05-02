@@ -6,7 +6,6 @@ import {
   LogOut,
   Activity,
   Upload,
-  BarChart,
   Settings,
   Info,
   BookOpen
@@ -30,7 +29,6 @@ export const MobileNav = ({ user, handleSignOut, setOpen }: MobileNavProps) => {
   if (user) {
     navigationItems.push(
       { name: "Upload Results", path: "/upload", icon: <Upload className="h-5 w-5 mr-2" /> },
-      { name: "Dashboard", path: "/dashboard", icon: <BarChart className="h-5 w-5 mr-2" /> },
       { name: "Settings", path: "/settings", icon: <Settings className="h-5 w-5 mr-2" /> }
     );
   }
