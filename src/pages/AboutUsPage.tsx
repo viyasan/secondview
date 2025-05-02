@@ -1,4 +1,3 @@
-
 import { Activity, ShieldCheck, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -27,14 +26,16 @@ const AboutUsPage = () => {
         <div className="max-w-3xl mx-auto text-center px-4">
           <h2 className="text-2xl font-semibold mb-6">Our Mission</h2>
           <p className="text-lg mb-6">
-            The need for a second look at your results should be readily available and quick. 
-            Just as doctors refer you to specialists for detailed analysis, you can rely on 
-            SecondView for another round of reassurance and review.
+            The need for a second look at your results should be readily
+            available and quick. Just as doctors refer you to specialists for
+            detailed analysis, you can rely on SecondView for another round of
+            reassurance and review.
           </p>
           <p className="text-lg">
-            We believe that understanding your health data shouldn't be complicated. 
-            Our AI-powered platform provides instant, easy-to-understand insights about 
-            your blood test results, helping you make informed decisions about your health.
+            We believe that understanding your health data shouldn't be
+            complicated. Our AI-powered platform provides instant,
+            easy-to-understand insights about your blood test results, helping
+            you make informed decisions about your health.
           </p>
         </div>
       </section>
@@ -50,11 +51,12 @@ const AboutUsPage = () => {
               </div>
               <h3 className="text-lg font-medium mb-2">Privacy First</h3>
               <p className="text-muted-foreground">
-                Your data is private and secure. We never share your personal information without permission.
+                Your data is private and secure. We never share your personal
+                information without permission.
               </p>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardContent className="pt-6 text-center">
               <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -62,11 +64,12 @@ const AboutUsPage = () => {
               </div>
               <h3 className="text-lg font-medium mb-2">Clinical Accuracy</h3>
               <p className="text-muted-foreground">
-                Our AI is trained on clinical data and medical research to provide relevant insights.
+                Our AI is trained on clinical data and medical research to
+                provide relevant insights.
               </p>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardContent className="pt-6 text-center">
               <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -74,7 +77,8 @@ const AboutUsPage = () => {
               </div>
               <h3 className="text-lg font-medium mb-2">Health Empowerment</h3>
               <p className="text-muted-foreground">
-                We believe everyone deserves to understand their health data without medical jargon.
+                We believe everyone deserves to understand their health data
+                without medical jargon.
               </p>
             </CardContent>
           </Card>
@@ -85,7 +89,8 @@ const AboutUsPage = () => {
       <section className="bg-green-50 py-12 rounded-lg text-center">
         <h2 className="text-2xl font-semibold mb-4">Ready to Get Started?</h2>
         <p className="text-lg mb-6 max-w-2xl mx-auto">
-          Upload your blood test results and receive AI-powered insights in minutes.
+          Upload your blood test results and receive AI-powered insights in
+          minutes.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
           <Button asChild size="lg" className="bg-green-600 hover:bg-green-700">
