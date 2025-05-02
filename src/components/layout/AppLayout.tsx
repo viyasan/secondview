@@ -4,18 +4,11 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
 import { 
-  Home,
   Menu,
-  LogOut,
   Activity,
-  Upload,
-  BarChart,
   User,
-  Settings,
-  Info,
-  BookOpen
+  LogOut,
 } from "lucide-react";
 import { MainNavigation } from "./MainNavigation";
 import { FooterContent } from "./FooterContent";
