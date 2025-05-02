@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useToast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { FcGoogle } from "react-icons/fc";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, ExternalLink } from "lucide-react";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -139,10 +139,31 @@ export const LoginForm = () => {
               </div>
               <div className="ml-3 text-sm text-blue-700">
                 <p>
-                  If you're having trouble with Google Sign-In, make sure pop-ups aren't blocked and try using an incognito window.
+                  If you're having trouble with Google Sign-In:
                 </p>
+                <ul className="mt-2 list-disc pl-5 space-y-1">
+                  <li>Make sure pop-ups aren't blocked</li>
+                  <li>Try using an incognito window</li>
+                  <li>Clear your browser cookies and cache</li>
+                  <li>Try a different browser</li>
+                </ul>
               </div>
             </div>
+          </div>
+          
+          <div className="text-xs text-center text-gray-500 mt-2">
+            <p>
+              Need help? Check the{" "}
+              <a 
+                href="https://supabase.com/docs/guides/auth/social-login/auth-google" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline inline-flex items-center gap-1"
+              >
+                troubleshooting guide
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </p>
           </div>
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">

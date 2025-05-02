@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
+import { toast as sonnerToast } from "sonner";
 
 type AuthContextType = {
   user: User | null;
@@ -23,24 +24,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { toast } = useToast();
 
   useEffect(() => {
+    console.log("Setting up auth provider...");
+    
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, newSession) => {
       console.log("Auth state changed:", event, newSession?.user?.email || "No user");
-      setSession(newSession);
-      setUser(newSession?.user ?? null);
       
-      if (event === 'SIGNED_IN' && newSession?.user) {
-        toast({
-          title: "Signed in successfully",
-          description: `Welcome ${newSession.user.email || "back"}!`,
-        });
-      }
-      
-      if (event === 'SIGNED_OUT') {
+      // Only update state if there's an actual change to avoid loops
+      if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && newSession) {
+        setSession(newSession);
+        setUser(newSession.user);
+        
+        if (event === 'SIGNED_IN') {
+          toast({
+            title: "Signed in successfully",
+            description: `Welcome ${newSession.user.email || "back"}!`,
+          });
+          
+          sonnerToast.success("Signed in successfully", {
+            description: `Welcome ${newSession.user.email || "back"}!`
+          });
+        }
+      } else if (event === 'SIGNED_OUT') {
+        setSession(null);
+        setUser(null);
+        
         toast({
           title: "Signed out",
           description: "You have been signed out successfully.",
         });
+        
+        sonnerToast.info("Signed out successfully");
       }
     });
 
@@ -48,6 +62,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const getInitialSession = async () => {
       try {
         setIsLoading(true);
+        console.log("Checking for existing session...");
+        
         const { data: { session: initialSession }, error } = await supabase.auth.getSession();
         
         if (error) {
@@ -58,9 +74,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             variant: "destructive"
           });
         } else {
+          console.log("Initial session loaded:", initialSession?.user?.email || "No active session");
           setSession(initialSession);
           setUser(initialSession?.user ?? null);
-          console.log("Initial session loaded:", initialSession?.user?.email || "No active session");
         }
       } catch (e: any) {
         console.error("Unexpected error during session retrieval:", e);
@@ -112,12 +128,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signInWithGoogle = async () => {
     try {
       console.log("Starting Google sign-in process...");
-      console.log(`Redirect URL: ${window.location.origin}/dashboard`);
+      const redirectUrl = `${window.location.origin}/dashboard`;
+      console.log(`Redirect URL: ${redirectUrl}`);
       
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/dashboard`
+          redirectTo: redirectUrl,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
         }
       });
       
@@ -128,8 +149,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           description: error.message,
           variant: "destructive",
         });
+        
+        sonnerToast.error("Google sign-in failed", {
+          description: error.message
+        });
       } else {
         console.log("Google sign-in initiated:", data);
+        sonnerToast.loading("Connecting to Google...", {
+          id: "google-signin",
+          duration: 5000
+        });
       }
     } catch (error: any) {
       console.error("Unexpected error during Google sign-in:", error);
