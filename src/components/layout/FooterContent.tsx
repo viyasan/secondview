@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
 import { Activity } from "lucide-react";
@@ -54,7 +55,7 @@ export const FooterContent = () => {
       <Separator className="mb-6" />
       
       <div className="text-center text-sm text-muted-foreground">
-        <p>© {new Date().getFullYear()} VitalScan. All rights reserved.</p>
+        <p>© 2025 SecondView. All rights reserved.</p>
       </div>
     </>;
 };
