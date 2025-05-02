@@ -1,20 +1,14 @@
-
 import React from "react";
 import { Separator } from "@/components/ui/separator";
-
 const PrivacyPolicyPage = () => {
-  return (
-    <div className="max-w-3xl mx-auto">
+  return <div className="max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
       <Separator className="mb-6" />
       
       <div className="space-y-6">
         <section>
           <h2 className="text-xl font-semibold mb-3">Introduction</h2>
-          <p className="text-muted-foreground">
-            At VitalScan, we take your privacy seriously. This Privacy Policy explains how we collect, 
-            use, disclose, and safeguard your information when you use our service.
-          </p>
+          <p className="text-muted-foreground">At SecondView, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our service.</p>
         </section>
 
         <section>
@@ -90,8 +84,6 @@ const PrivacyPolicyPage = () => {
         
         <p className="text-sm text-muted-foreground mt-8">Last Updated: April 30, 2025</p>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default PrivacyPolicyPage;
