@@ -1,12 +1,11 @@
 
 import ProductDetail from '@/components/products/ProductDetail';
-import Layout from '@/components/layout/Layout';
 
 const ProductPage = () => {
   return (
-    <Layout>
+    <div className="container py-6">
       <ProductDetail />
-    </Layout>
+    </div>
   );
 };
 
