@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
@@ -109,7 +108,7 @@ const HomePage = () => {
               Simple Process
             </div>
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-              How VitalScan Works
+              How SecondView Works
             </h2>
             <p className="max-w-[700px] text-gray-500 md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed dark:text-gray-400">
               Get insights on your blood test in three simple steps
@@ -167,7 +166,7 @@ const HomePage = () => {
               Trusted by Thousands
             </h2>
             <p className="max-w-[700px] text-gray-500 md:text-lg/relaxed dark:text-gray-400">
-              See what others are saying about their experience with VitalScan
+              See what others are saying about their experience with SecondView
             </p>
           </div>
           
@@ -184,7 +183,7 @@ const HomePage = () => {
                   </div>
                 </div>
                 <p className="text-gray-600">
-                  "VitalScan made it easy for me to understand my yearly lab results. The explanations are clear and I finally understand what my cholesterol numbers actually mean!"
+                  "SecondView made it easy for me to understand my yearly lab results. The explanations are clear and I finally understand what my cholesterol numbers actually mean!"
                 </p>
               </CardContent>
             </Card>
@@ -218,7 +217,7 @@ const HomePage = () => {
                   </div>
                 </div>
                 <p className="text-gray-600">
-                  "I recommend VitalScan to all my clients. It's an excellent tool for monitoring health progress and understanding how lifestyle changes affect blood markers."
+                  "I recommend SecondView to all my clients. It's an excellent tool for monitoring health progress and understanding how lifestyle changes affect blood markers."
                 </p>
               </CardContent>
             </Card>

@@ -37,7 +37,7 @@ export const MobileNav = ({ user, handleSignOut, setOpen }: MobileNavProps) => {
     <div className="flex flex-col gap-6">
       <Link to="/" className="flex items-center space-x-2" onClick={() => setOpen(false)}>
         <Activity className="h-6 w-6 text-green-600" />
-        <span className="font-bold text-xl">VitalScan</span>
+        <span className="font-bold text-xl">SecondView</span>
       </Link>
       <nav className="flex flex-col gap-2">
         {navigationItems.map((item) => (

@@ -9,7 +9,7 @@ const AboutUsPage = () => {
     <div className="flex flex-col gap-12">
       {/* Hero Section */}
       <section className="text-center max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-6">About VitalScan</h1>
+        <h1 className="text-4xl font-bold mb-6">About SecondView</h1>
         <p className="text-xl text-muted-foreground mb-8">
           Your trusted partner for blood test insights and health monitoring
         </p>
@@ -29,7 +29,7 @@ const AboutUsPage = () => {
           <p className="text-lg mb-6">
             The need for a second look at your results should be readily available and quick. 
             Just as doctors refer you to specialists for detailed analysis, you can rely on 
-            VitalScan for another round of reassurance and review.
+            SecondView for another round of reassurance and review.
           </p>
           <p className="text-lg">
             We believe that understanding your health data shouldn't be complicated. 

@@ -31,7 +31,7 @@ export const AppLayout = () => {
           <div className="mr-4 hidden md:flex">
             <Link to="/" className="flex items-center space-x-2">
               <Activity className="h-6 w-6 text-green-600" />
-              <span className="font-bold text-xl">VitalScan</span>
+              <span className="font-bold text-xl">SecondView</span>
             </Link>
           </div>
           
