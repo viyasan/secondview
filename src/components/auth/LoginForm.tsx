@@ -8,11 +8,13 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useToast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { FcGoogle } from "react-icons/fc";
+import { AlertCircle } from "lucide-react";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const navigate = useNavigate();
   const { signIn, signInWithGoogle } = useAuth();
   const { toast } = useToast();
@@ -46,13 +48,18 @@ export const LoginForm = () => {
 
   const handleGoogleSignIn = async () => {
     try {
+      setGoogleLoading(true);
       await signInWithGoogle();
+      // Note: We don't navigate here because the OAuth flow will handle redirection
     } catch (error: any) {
       toast({
         title: "Authentication failed",
         description: error.message || "Failed to sign in with Google",
         variant: "destructive",
       });
+    } finally {
+      // Set timeout to prevent the loading state from being reset before redirect
+      setTimeout(() => setGoogleLoading(false), 2000);
     }
   };
 
@@ -110,11 +117,33 @@ export const LoginForm = () => {
             variant="outline"
             className="w-full flex items-center justify-center gap-2"
             onClick={handleGoogleSignIn}
-            disabled={isLoading}
+            disabled={googleLoading || isLoading}
           >
-            <FcGoogle className="h-5 w-5" />
-            Sign in with Google
+            {googleLoading ? (
+              <>
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-500 border-t-transparent"></div>
+                <span>Connecting to Google...</span>
+              </>
+            ) : (
+              <>
+                <FcGoogle className="h-5 w-5" />
+                Sign in with Google
+              </>
+            )}
           </Button>
+          
+          <div className="rounded-md bg-blue-50 p-4 mt-4">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <AlertCircle className="h-5 w-5 text-blue-400" />
+              </div>
+              <div className="ml-3 text-sm text-blue-700">
+                <p>
+                  If you're having trouble with Google Sign-In, make sure pop-ups aren't blocked and try using an incognito window.
+                </p>
+              </div>
+            </div>
+          </div>
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
           <div className="text-center text-sm">
