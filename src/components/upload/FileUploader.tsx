@@ -1,11 +1,10 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { File, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -159,6 +158,13 @@ export const FileUploader = () => {
     }
   };
 
+  const handleBrowseClick = () => {
+    const fileInput = document.getElementById('file-input') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.click();
+    }
+  };
+
   return (
     <div className="w-full max-w-md mx-auto">
       {!file ? (
@@ -179,17 +185,16 @@ export const FileUploader = () => {
               Or click to browse files<br />
               (Max file size: 10MB)
             </p>
-            <label className="cursor-pointer">
-              <input
-                type="file"
-                className="hidden"
-                accept=".pdf"
-                onChange={onFileChange}
-              />
-              <Button variant="outline" type="button">
-                Browse Files
-              </Button>
-            </label>
+            <input
+              id="file-input"
+              type="file"
+              className="hidden"
+              accept=".pdf"
+              onChange={onFileChange}
+            />
+            <Button variant="outline" type="button" onClick={handleBrowseClick}>
+              Browse Files
+            </Button>
           </div>
         </div>
       ) : (
