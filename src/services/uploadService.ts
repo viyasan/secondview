@@ -6,6 +6,8 @@ export const uploadFileToStorage = async (file: File, userId: string) => {
   const fileExt = file.name.split('.').pop();
   const filePath = `${userId}/${Date.now()}.${fileExt}`;
   
+  console.log('Uploading file to storage:', filePath);
+  
   // Upload file to Supabase Storage
   const { error: storageError } = await supabase.storage
     .from('blood-test-uploads')
@@ -13,12 +15,18 @@ export const uploadFileToStorage = async (file: File, userId: string) => {
       upsert: false,
     });
   
-  if (storageError) throw storageError;
+  if (storageError) {
+    console.error('Storage upload error:', storageError);
+    throw storageError;
+  }
   
+  console.log('File uploaded successfully to storage');
   return filePath;
 };
 
 export const createUploadRecord = async (userId: string, filePath: string) => {
+  console.log('Creating upload record for user:', userId);
+  
   const { data: uploadData, error: uploadError } = await supabase
     .from('uploads')
     .insert({
@@ -28,12 +36,18 @@ export const createUploadRecord = async (userId: string, filePath: string) => {
     .select('id')
     .single();
   
-  if (uploadError) throw uploadError;
+  if (uploadError) {
+    console.error('Upload record creation error:', uploadError);
+    throw uploadError;
+  }
   
+  console.log('Upload record created with ID:', uploadData.id);
   return uploadData;
 };
 
 export const processBloodTest = async (uploadId: string) => {
+  console.log('Starting blood test processing for upload ID:', uploadId);
+  
   // Call the AI function with mock blood test data
   const { data, error } = await supabase.functions.invoke('analyze-blood-test', {
     body: { 
@@ -54,15 +68,22 @@ export const processBloodTest = async (uploadId: string) => {
     },
   });
   
-  if (error) throw error;
+  if (error) {
+    console.error('AI function error:', error);
+    throw error;
+  }
+  
+  console.log('AI function response received:', data);
   
   // Parse the AI analysis and save results to database
-  await parseAndSaveResults(uploadId, data.analysis);
+  await parseAndSaveResults(uploadId, data?.analysis || 'Mock analysis');
   
   return data;
 };
 
 const parseAndSaveResults = async (uploadId: string, analysis: string) => {
+  console.log('Parsing and saving results for upload ID:', uploadId);
+  
   // Parse the AI analysis - this is a simplified parser
   // In a real app, you'd want more robust parsing
   const mockResults = [
@@ -148,22 +169,34 @@ const parseAndSaveResults = async (uploadId: string, analysis: string) => {
     }
   ];
 
+  console.log('Inserting mock results:', mockResults.length, 'records');
+
   // Insert results into the database
-  const { error: insertError } = await supabase
+  const { data: insertedData, error: insertError } = await supabase
     .from('results')
-    .insert(mockResults);
+    .insert(mockResults)
+    .select();
 
   if (insertError) {
     console.error('Error saving results:', insertError);
     throw insertError;
   }
 
-  console.log('Results saved successfully for upload:', uploadId);
+  console.log('Results saved successfully for upload:', uploadId, 'Inserted records:', insertedData?.length);
 };
 
 export const markAsProcessed = async (uploadId: string) => {
-  await supabase
+  console.log('Marking upload as processed:', uploadId);
+  
+  const { error } = await supabase
     .from('uploads')
     .update({ processed: true })
     .eq('id', uploadId);
+    
+  if (error) {
+    console.error('Error marking as processed:', error);
+    throw error;
+  }
+  
+  console.log('Upload marked as processed successfully');
 };
