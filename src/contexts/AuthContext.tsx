@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from "@/integrations/supabase/client";
@@ -128,7 +127,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signInWithGoogle = async () => {
     try {
       console.log("Starting Google sign-in process...");
-      const redirectUrl = `${window.location.origin}/upload`;
+      const redirectUrl = `${window.location.origin}/dashboard`;
       console.log(`Redirect URL: ${redirectUrl}`);
       
       const { data, error } = await supabase.auth.signInWithOAuth({

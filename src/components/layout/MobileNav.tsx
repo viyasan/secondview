@@ -8,7 +8,8 @@ import {
   Upload,
   Settings,
   Info,
-  BookOpen
+  BookOpen,
+  LayoutDashboard
 } from "lucide-react";
 
 interface MobileNavProps {
@@ -28,6 +29,7 @@ export const MobileNav = ({ user, handleSignOut, setOpen }: MobileNavProps) => {
   // Add protected routes if user is authenticated
   if (user) {
     navigationItems.push(
+      { name: "Dashboard", path: "/dashboard", icon: <LayoutDashboard className="h-5 w-5 mr-2" /> },
       { name: "Upload Results", path: "/upload", icon: <Upload className="h-5 w-5 mr-2" /> },
       { name: "Settings", path: "/settings", icon: <Settings className="h-5 w-5 mr-2" /> }
     );
