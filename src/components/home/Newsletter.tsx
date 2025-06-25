@@ -1,63 +1,79 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
+export const Newsletter = () => {
+  const [email, setEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
 
-const Newsletter = () => {
-  const [email, setEmail] = useState('');
-  const { toast } = useToast();
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email) {
-      toast({
-        title: "Error",
-        description: "Please enter your email address.",
-        variant: "destructive",
-      });
+      toast.error("Please enter your email address");
       return;
     }
-    
-    // In a real application, this would call an API to subscribe the user
-    toast({
-      title: "Thank you for subscribing!",
-      description: "You've been added to our newsletter.",
-    });
-    
-    setEmail('');
+
+    setIsSubscribing(true);
+
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      toast.success("Successfully subscribed!", {
+        description:
+          "You'll receive updates about new features and health tips",
+      });
+
+      setEmail("");
+    } catch (error) {
+      toast.error("Subscription failed", {
+        description: "Please try again later",
+      });
+    } finally {
+      setIsSubscribing(false);
+    }
   };
 
   return (
-    <section className="urbanite-section bg-urbanite-900 text-white">
-      <div className="urbanite-container">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-semibold mb-3">Stay in Touch</h2>
-          <p className="text-urbanite-200 mb-6">
-            Subscribe to our newsletter for exclusive offers, early access to new releases, and sustainable fashion insights.
+    <section className="py-16 bg-green-50 dark:bg-green-900/10">
+      <div className="container px-4 md:px-6">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+          <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+            Stay Updated
+          </h2>
+          <p className="max-w-[600px] text-gray-500 md:text-lg/relaxed dark:text-gray-400">
+            Get the latest health insights and updates from SecondView delivered
+            to your inbox.
           </p>
-          
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+
+          <form
+            onSubmit={handleSubscribe}
+            className="flex w-full max-w-sm space-x-2"
+          >
             <Input
               type="email"
-              placeholder="Your email address"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-white/10 border-white/20 text-white placeholder:text-urbanite-300"
+              className="flex-1"
+              required
             />
-            <Button type="submit" className="bg-white text-urbanite-900 hover:bg-white/90">
-              Subscribe
+            <Button
+              type="submit"
+              disabled={isSubscribing}
+              className="bg-green-600 hover:bg-green-700"
+            >
+              {isSubscribing ? "Subscribing..." : "Subscribe"}
             </Button>
           </form>
-          
-          <p className="text-xs text-urbanite-300 mt-4">
-            By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.
+
+          <p className="text-xs text-gray-500">
+            We respect your privacy. Unsubscribe at any time.
           </p>
         </div>
       </div>
     </section>
   );
 };
-
-export default Newsletter;

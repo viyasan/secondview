@@ -1,9 +1,7 @@
-
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Session, User } from '@supabase/supabase-js';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/components/ui/use-toast";
-import { toast as sonnerToast } from "sonner";
+import { toast } from "sonner";
 
 type AuthContextType = {
   user: User | null;
@@ -21,40 +19,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { toast } = useToast();
 
   useEffect(() => {
     console.log("Setting up auth provider...");
-    
+
     // Set up auth state listener FIRST
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, newSession) => {
-      console.log("Auth state changed:", event, newSession?.user?.email || "No user");
-      
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, newSession) => {
+      console.log(
+        "Auth state changed:",
+        event,
+        newSession?.user?.email || "No user"
+      );
+
       // Only update state if there's an actual change to avoid loops
-      if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && newSession) {
+      if (
+        (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") &&
+        newSession
+      ) {
         setSession(newSession);
         setUser(newSession.user);
-        
-        if (event === 'SIGNED_IN') {
-          toast({
-            title: "Signed in successfully",
+
+        if (event === "SIGNED_IN") {
+          toast.success("Signed in successfully", {
             description: `Welcome ${newSession.user.email || "back"}!`,
           });
-          
-          sonnerToast.success("Signed in successfully", {
-            description: `Welcome ${newSession.user.email || "back"}!`
-          });
         }
-      } else if (event === 'SIGNED_OUT') {
+      } else if (event === "SIGNED_OUT") {
         setSession(null);
         setUser(null);
-        
-        toast({
-          title: "Signed out",
-          description: "You have been signed out successfully.",
-        });
-        
-        sonnerToast.info("Signed out successfully");
+
+        toast.info("Signed out successfully");
       }
     });
 
@@ -63,18 +59,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         setIsLoading(true);
         console.log("Checking for existing session...");
-        
-        const { data: { session: initialSession }, error } = await supabase.auth.getSession();
-        
+
+        const {
+          data: { session: initialSession },
+          error,
+        } = await supabase.auth.getSession();
+
         if (error) {
           console.error("Error getting session:", error);
-          toast({
-            title: "Session error",
+          toast.error("Session error", {
             description: error.message,
-            variant: "destructive"
           });
         } else {
-          console.log("Initial session loaded:", initialSession?.user?.email || "No active session");
+          console.log(
+            "Initial session loaded:",
+            initialSession?.user?.email || "No active session"
+          );
           setSession(initialSession);
           setUser(initialSession?.user ?? null);
         }
@@ -90,11 +90,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, [toast]);
+  }, []);
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
       return { error };
     } catch (error: any) {
       console.error("Sign in error:", error);
@@ -117,10 +120,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await supabase.auth.signOut();
     } catch (error: any) {
       console.error("Sign out error:", error);
-      toast({
-        title: "Sign out failed",
+      toast.error("Sign out failed", {
         description: error.message || "Failed to sign out",
-        variant: "destructive",
       });
     }
   };
@@ -130,42 +131,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log("Starting Google sign-in process...");
       const redirectUrl = `${window.location.origin}/upload`;
       console.log(`Redirect URL: ${redirectUrl}`);
-      
+
       const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
+        provider: "google",
         options: {
           redirectTo: redirectUrl,
           queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          }
-        }
+            access_type: "offline",
+            prompt: "consent",
+          },
+        },
       });
-      
+
       if (error) {
         console.error("Google sign-in error:", error);
-        toast({
-          title: "Google sign-in failed",
+        toast.error("Google sign-in failed", {
           description: error.message,
-          variant: "destructive",
-        });
-        
-        sonnerToast.error("Google sign-in failed", {
-          description: error.message
         });
       } else {
         console.log("Google sign-in initiated:", data);
-        sonnerToast.loading("Connecting to Google...", {
+        toast.loading("Connecting to Google...", {
           id: "google-signin",
-          duration: 5000
+          duration: 5000,
         });
       }
     } catch (error: any) {
       console.error("Unexpected error during Google sign-in:", error);
-      toast({
-        title: "Google sign-in failed",
+      toast.error("Google sign-in failed", {
         description: error.message || "An unexpected error occurred",
-        variant: "destructive",
       });
     }
   };
@@ -186,7 +179,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }
