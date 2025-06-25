@@ -10,6 +10,7 @@ import { Analytics } from "@vercel/analytics/next";
 import HomePage from "@/pages/HomePage";
 import LoginPage from "@/pages/LoginPage";
 import SignupPage from "@/pages/SignupPage";
+import DashboardPage from "@/pages/DashboardPage";
 import UploadPage from "@/pages/UploadPage";
 import ResultsPage from "@/pages/ResultsPage";
 import SettingsPage from "@/pages/SettingsPage";
@@ -52,6 +53,7 @@ const App = () => (
 
               {/* Protected Routes */}
               <Route element={<ProtectedRoute />}>
+                <Route path="dashboard" element={<DashboardPage />} />
                 <Route path="upload" element={<UploadPage />} />
                 <Route path="results/:id" element={<ResultsPage />} />
                 <Route path="settings" element={<SettingsPage />} />

@@ -14,6 +14,16 @@ import {
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import { validateFile } from "@/utils/fileValidation";
+import {
+  uploadFileToStorage,
+  createUploadRecord,
+  processBloodTest,
+  markAsProcessed,
+} from "@/services/uploadService";
+import { DropZone } from "./DropZone";
+import { FilePreview } from "./FilePreview";
+import { PrivacyModal } from "./PrivacyModal";
 
 export const FileUploader = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -176,6 +186,13 @@ export const FileUploader = () => {
       setIsUploading(false);
       setFile(null);
       setShowPrivacyModal(false);
+    }
+  };
+
+  const handleBrowseClick = () => {
+    const fileInput = document.getElementById("file-input") as HTMLInputElement;
+    if (fileInput) {
+      fileInput.click();
     }
   };
 

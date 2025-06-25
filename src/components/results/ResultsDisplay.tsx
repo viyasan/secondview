@@ -33,17 +33,38 @@ export const ResultsDisplay = () => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
+        console.log('Fetching results for upload ID:', id);
         setIsLoading(true);
         setError(null);
+
+        // First, verify the upload exists and belongs to the user
+        const { data: uploadData, error: uploadError } = await supabase
+          .from("uploads")
+          .select("*")
+          .eq("id", id)
+          .single();
+
+        if (uploadError) {
+          console.error('Upload fetch error:', uploadError);
+          throw new Error(`Upload not found: ${uploadError.message}`);
+        }
+
+        console.log('Upload found:', uploadData);
 
         const { data, error } = await supabase
           .from("results")
           .select("*")
           .eq("upload_id", id);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Results fetch error:', error);
+          throw error;
+        }
+
+        console.log('Raw results data:', data);
 
         if (!data || data.length === 0) {
+          console.log('No results found for upload ID:', id);
           setError("No results found for this upload");
           setIsLoading(false);
           return;
@@ -66,6 +87,7 @@ export const ResultsDisplay = () => {
           resultsByCategory[processedResult.category].push(processedResult);
         });
 
+        console.log('Processed results by category:', resultsByCategory);
         setResults(resultsByCategory);
         setActiveCategory(Object.keys(resultsByCategory)[0]);
       } catch (error: any) {
