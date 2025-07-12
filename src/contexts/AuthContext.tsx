@@ -44,6 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (event === "SIGNED_IN") {
           toast.success("Signed in successfully", {
             description: `Welcome ${newSession.user.email || "back"}!`,
+            duration: 2000, // Auto-close after 2 seconds
           });
         }
       } else if (event === "SIGNED_OUT") {
