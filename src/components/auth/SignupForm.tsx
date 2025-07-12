@@ -37,9 +37,19 @@ export const SignupForm = () => {
       const { error } = await signUp(email, password);
 
       if (error) {
-        toast.error("Sign up failed", {
-          description: error.message,
-        });
+        if (error.message?.includes("User already registered") || error.message?.includes("already registered")) {
+          toast.error("Account already exists", {
+            description: "This email is already registered. Please sign in instead.",
+            action: {
+              label: "Sign In",
+              onClick: () => navigate("/login"),
+            },
+          });
+        } else {
+          toast.error("Sign up failed", {
+            description: error.message,
+          });
+        }
       } else {
         toast.success("Account created successfully", {
           description: "Please check your email to verify your account",
@@ -47,9 +57,19 @@ export const SignupForm = () => {
         navigate("/login");
       }
     } catch (error: any) {
-      toast.error("Sign up failed", {
-        description: error.message || "An unexpected error occurred",
-      });
+      if (error.message?.includes("User already registered") || error.message?.includes("already registered")) {
+        toast.error("Account already exists", {
+          description: "This email is already registered. Please sign in instead.",
+          action: {
+            label: "Sign In",
+            onClick: () => navigate("/login"),
+          },
+        });
+      } else {
+        toast.error("Sign up failed", {
+          description: error.message || "An unexpected error occurred",
+        });
+      }
     } finally {
       setIsLoading(false);
     }
