@@ -7,81 +7,133 @@ import { UploadsList } from "@/components/dashboard/UploadsList";
 
 const DashboardPage = () => {
   return (
-    <div className="py-8 space-y-8">
-      {/* Hero CTA Section */}
-      <div className="text-center">
-        <Card className="bg-green-50 border-green-200">
+    <div className="py-8">
+      {/* Header Section */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-foreground mb-2">Good morning, Welcome back!</h1>
+        <p className="text-muted-foreground">Here's your health overview for today</p>
+      </div>
+
+      {/* Bento Box Grid */}
+      <div className="grid grid-cols-2 gap-6 h-[600px]">
+        {/* Large Box - Left Side */}
+        <Card className="col-span-1 row-span-2 p-6">
           <CardHeader className="pb-4">
-            <div className="flex justify-center mb-4">
-              <div className="bg-green-100 p-4 rounded-full">
-                <Upload className="h-12 w-12 text-green-600" />
-              </div>
-            </div>
-            <CardTitle className="text-2xl text-green-800">
-              Upload Your Blood Test Results
+            <CardTitle className="text-xl flex items-center gap-2">
+              <Activity className="h-6 w-6 text-primary" />
+              Health Overview
             </CardTitle>
-            <CardDescription className="text-lg text-green-700">
-              Get AI-powered insights about your health in minutes
+            <CardDescription>
+              Your latest health metrics and trends
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <Button asChild size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8">
-              <Link to="/upload" className="flex items-center">
-                <FileText className="mr-2 h-5 w-5" />
-                Upload Blood Test
+          <CardContent className="space-y-6">
+            <div className="text-center py-8">
+              <div className="text-6xl font-bold text-primary mb-2">85</div>
+              <div className="text-lg text-muted-foreground">Health Score</div>
+              <div className="text-sm text-green-600 mt-2">↗ +5 from last month</div>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium">Cardiovascular</span>
+                <span className="text-sm text-green-600">Normal</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium">Liver Function</span>
+                <span className="text-sm text-green-600">Good</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium">Vitamin Levels</span>
+                <span className="text-sm text-amber-600">Low</span>
+              </div>
+            </div>
+
+            <Button asChild className="w-full">
+              <Link to="/upload" className="flex items-center justify-center">
+                <Upload className="mr-2 h-4 w-4" />
+                Upload New Test
               </Link>
             </Button>
           </CardContent>
         </Card>
-      </div>
 
-      {/* How It Works Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card>
-          <CardHeader className="text-center">
-            <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
-              <Upload className="h-6 w-6 text-blue-600" />
-            </div>
-            <CardTitle className="text-lg">1. Upload</CardTitle>
+        {/* Top Right Box */}
+        <Card className="col-span-1 p-6">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <FileText className="h-5 w-5 text-primary" />
+              Recent Upload
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground text-center">
-              Upload your PDF blood test results securely
-            </p>
+            <div className="space-y-3">
+              <div className="text-sm text-muted-foreground">Latest Test Results</div>
+              <div className="text-lg font-semibold">Blood Panel - Complete</div>
+              <div className="text-sm text-muted-foreground">2 days ago</div>
+              <div className="flex gap-2 mt-4">
+                <div className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">
+                  32 markers analyzed
+                </div>
+                <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                  6 categories
+                </div>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="text-center">
-            <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
-              <Activity className="h-6 w-6 text-purple-600" />
-            </div>
-            <CardTitle className="text-lg">2. Analyze</CardTitle>
+        {/* Bottom Right Box */}
+        <Card className="col-span-1 p-6">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Activity className="h-5 w-5 text-primary" />
+              Key Metrics
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground text-center">
-              Our AI analyzes your results and categorizes markers
-            </p>
-          </CardContent>
-        </Card>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="text-sm font-medium">Cholesterol</div>
+                  <div className="text-xs text-muted-foreground">Total</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm font-semibold">180 mg/dL</div>
+                  <div className="text-xs text-green-600">Normal</div>
+                </div>
+              </div>
+              
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="text-sm font-medium">Blood Sugar</div>
+                  <div className="text-xs text-muted-foreground">Fasting</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm font-semibold">95 mg/dL</div>
+                  <div className="text-xs text-green-600">Normal</div>
+                </div>
+              </div>
 
-        <Card>
-          <CardHeader className="text-center">
-            <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
-              <FileText className="h-6 w-6 text-green-600" />
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="text-sm font-medium">Vitamin D</div>
+                  <div className="text-xs text-muted-foreground">25-OH</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm font-semibold">22 ng/mL</div>
+                  <div className="text-xs text-amber-600">Low</div>
+                </div>
+              </div>
             </div>
-            <CardTitle className="text-lg">3. Insights</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground text-center">
-              Get easy-to-understand health insights and recommendations
-            </p>
           </CardContent>
         </Card>
       </div>
 
       {/* Previous Uploads Section */}
-      <UploadsList />
+      <div className="mt-8">
+        <UploadsList />
+      </div>
     </div>
   );
 };
