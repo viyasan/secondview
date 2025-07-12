@@ -10,7 +10,7 @@ const DashboardPage = () => {
     <div className="py-8">
       {/* Header Section */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground mb-2">Good morning, Welcome back!</h1>
+        <h1 className="text-3xl font-bold text-foreground mb-2">Good morning!</h1>
         <p className="text-muted-foreground">Here's your health overview for today</p>
       </div>
 
@@ -59,40 +59,40 @@ const DashboardPage = () => {
         </Card>
 
         {/* Top Right Box */}
-        <Card className="col-span-1 p-6">
+        <Card className="col-span-1 p-4 rounded-3xl">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg flex items-center gap-2">
               <FileText className="h-5 w-5 text-primary" />
               Recent Upload
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
+          <CardContent className="space-y-3">
+            <Card className="p-4 rounded-2xl bg-muted/30 border-0">
               <div className="text-sm text-muted-foreground">Latest Test Results</div>
-              <div className="text-lg font-semibold">Blood Panel - Complete</div>
+              <div className="text-lg font-semibold mt-1">Blood Panel - Complete</div>
               <div className="text-sm text-muted-foreground">2 days ago</div>
-              <div className="flex gap-2 mt-4">
-                <div className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">
+              <div className="flex gap-2 mt-3">
+                <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-medium">
                   32 markers analyzed
                 </div>
-                <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                <div className="bg-secondary/10 text-secondary-foreground px-3 py-1 rounded-full text-xs font-medium">
                   6 categories
                 </div>
               </div>
-            </div>
+            </Card>
           </CardContent>
         </Card>
 
         {/* Bottom Right Box */}
-        <Card className="col-span-1 p-6">
+        <Card className="col-span-1 p-4 rounded-3xl">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg flex items-center gap-2">
               <Activity className="h-5 w-5 text-primary" />
               Key Metrics
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
+          <CardContent className="space-y-3">
+            <Card className="p-3 rounded-2xl bg-muted/30 border-0">
               <div className="flex justify-between items-center">
                 <div>
                   <div className="text-sm font-medium">Cholesterol</div>
@@ -103,7 +103,9 @@ const DashboardPage = () => {
                   <div className="text-xs text-green-600">Normal</div>
                 </div>
               </div>
-              
+            </Card>
+            
+            <Card className="p-3 rounded-2xl bg-muted/30 border-0">
               <div className="flex justify-between items-center">
                 <div>
                   <div className="text-sm font-medium">Blood Sugar</div>
@@ -114,7 +116,9 @@ const DashboardPage = () => {
                   <div className="text-xs text-green-600">Normal</div>
                 </div>
               </div>
+            </Card>
 
+            <Card className="p-3 rounded-2xl bg-muted/30 border-0">
               <div className="flex justify-between items-center">
                 <div>
                   <div className="text-sm font-medium">Vitamin D</div>
@@ -125,7 +129,7 @@ const DashboardPage = () => {
                   <div className="text-xs text-amber-600">Low</div>
                 </div>
               </div>
-            </div>
+            </Card>
           </CardContent>
         </Card>
       </div>
