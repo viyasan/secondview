@@ -4,13 +4,11 @@ import { Link } from 'react-router-dom';
 import { ShoppingBag, Menu, X, User, Search } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useCart } from '@/hooks/useCart';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { cartItems } = useCart();
-  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const totalItems = 0; // Placeholder since cart is not implemented
 
   useEffect(() => {
     const handleScroll = () => {

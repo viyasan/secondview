@@ -1,11 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { 
-  Home,
-  Upload,
   Settings,
-  Info,
-  BookOpen,
   LayoutDashboard
 } from "lucide-react";
 
@@ -14,21 +10,16 @@ interface MainNavigationProps {
 }
 
 export const MainNavigation = ({ user }: MainNavigationProps) => {
-  // Define navigation items based on user authentication status
-  const navigationItems = [
-    { name: "Home", path: "/", icon: <Home className="h-5 w-5 mr-2" /> },
-    { name: "About Us", path: "/about", icon: <Info className="h-5 w-5 mr-2" /> },
-    { name: "How It Works", path: "/how-it-works", icon: <BookOpen className="h-5 w-5 mr-2" /> },
-  ];
-
-  // Add protected routes if user is authenticated
-  if (user) {
-    navigationItems.push(
-      { name: "Dashboard", path: "/dashboard", icon: <LayoutDashboard className="h-5 w-5 mr-2" /> },
-      { name: "Upload Results", path: "/upload", icon: <Upload className="h-5 w-5 mr-2" /> },
-      { name: "Settings", path: "/settings", icon: <Settings className="h-5 w-5 mr-2" /> }
-    );
+  // Only show navigation for authenticated users
+  if (!user) {
+    return null;
   }
+
+  // Only Dashboard and Settings for authenticated users
+  const navigationItems = [
+    { name: "Dashboard", path: "/dashboard", icon: <LayoutDashboard className="h-5 w-5 mr-2" /> },
+    { name: "Settings", path: "/settings", icon: <Settings className="h-5 w-5 mr-2" /> }
+  ];
 
   return (
     <nav className="mx-6 items-center space-x-4 md:flex hidden">
